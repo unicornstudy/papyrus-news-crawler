@@ -78,7 +78,7 @@ const getArticleDetails = async (url) => {
           
           await client.set(url, JSON.stringify(articleDetails));
 
-          const channel = getChannel();
+          const channel = await getChannel();
           channel.sendToQueue('daum', Buffer.from(JSON.stringify(articleDetails)));
 
           return articleDetails;
