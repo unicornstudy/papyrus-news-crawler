@@ -1,25 +1,35 @@
+// rabbitmq.js
+
 const amqp = require('amqplib/callback_api');
 
-let channel;
+let channelPromise = null;
 
-async function setupChannel() {
-    return new Promise((resolve, reject) => {
-        amqp.connect('amqp://localhost', function(error0, connection) {
-            if (error0) {
-                reject(error0);
-            }
-            connection.createChannel(function(error1, ch) {
-                if (error1) {
-                    reject(error1);
+function getChannel() {
+    if (!channelPromise) {
+        channelPromise = new Promise((resolve, reject) => {
+            amqp.connect('amqp://localhost', function (error0, connection) {
+                if (error0) {
+                    reject(error0);
                 }
-                channel = ch;
-                resolve(ch);
+
+                console.log("Connected to RabbitMQ");
+
+                connection.createChannel(function (error1, ch) {
+                    if (error1) {
+                        reject(error1);
+                    }
+
+                    ch.assertQueue('daum', {
+                        durable: true
+                    });
+
+                    resolve(ch);
+                });
             });
         });
-    });
+    }
+
+    return channelPromise;
 }
 
-// Ensure that the channel is set up at the start
-setupChannel().catch(err => console.error(err));
-
-module.exports = () => channel;
+module.exports = getChannel;
