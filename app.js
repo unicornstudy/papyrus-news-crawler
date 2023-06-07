@@ -1,7 +1,11 @@
 const express = require('express');
 const app = express();
 const { getArticles } = require('./newsCrawler.js');
+<<<<<<< HEAD
 const port = 3001;
+=======
+const port = 3000;
+>>>>>>> a90f75b403c04e16e47248c71ef950fec9d8bb40
 
 require('./scheduler.js');
 
