@@ -1,5 +1,3 @@
-// rabbitmq.js
-
 const amqp = require('amqplib/callback_api');
 
 let channelPromise = null;
