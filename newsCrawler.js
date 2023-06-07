@@ -63,6 +63,7 @@ const getArticleDetails = async (url) => {
         let category = $('section.inner-main h2.screen_out').text();
         let press = $('#kakaoServiceLogo').text();
         let reporter = $('.info_view .txt_info').first().text();
+        let platform = "daum";
         console.log(`Title: ${title}\n`);
         console.log(`Paragraphs: ${paragraphs.join('\n')}\n`);
         console.log(`Category: ${category}\n`);
@@ -73,7 +74,8 @@ const getArticleDetails = async (url) => {
             paragraphs: paragraphs,
             category: category,
             press: press,
-            reporter: reporter
+            reporter: reporter,
+            platform: platform
           };
           
           await client.set(url, JSON.stringify(articleDetails));

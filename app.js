@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const { getArticles } = require('./newsCrawler.js');
-const port = 3000;
+const port = 3001;
 
 require('./scheduler.js');
 
